@@ -7,44 +7,93 @@
         </div>
       </div>
     </nav>
-    <nav class="navbar is-white">
-      <div class="container">
-        <div class="navbar-menu">
-          <div class="navbar-start">
-            <a class="navbar-item is-active" href="#">Newest</a>
-            <a class="navbar-item" href="#">In Progress</a>
-            <a class="navbar-item" href="#">Finished</a>
+    <nav
+      class="navbar is-white"
+    >
+      <div
+        class="container"
+      >
+        <div
+          class="navbar-menu"
+        >
+          <div
+            class="navbar-start"
+          >
+            <a
+              class="navbar-item is-active"
+              href="#"
+            >Newest</a>
+            <a
+              class="navbar-item"
+              href="#"
+            >In Progress</a>
+            <a
+              class="navbar-item"
+              href="#"
+            >Finished</a>
           </div>
         </div>
       </div>
     </nav>
     <section class="container">
       <div class="columns">
+        <a
+          v-if="!isFormDisplayed"
+          class="button is-primary is-block is-alt is-large"
+          href="#"
+          @click="toggleFormDisplay()"
+        >New Activity</a>
         <div class="column is-3">
-          <a @click="toggleFormDisplay()" v-if="!isFormDisplayed" class="button is-primary is-block is-alt is-large" href="#">New Activity</a>
-          <div v-if="isFormDisplayed" class="create-form">
+          <div
+            v-if="isFormDisplayed"
+            class="create-form"
+          >
             <h2>Create Activity</h2>
             <form>
               <div class="field">
-                <label class="label">Title</label>
+                <label 
+                  class="label" 
+                  for="activity-name"
+                >Title</label>
                 <div class="control">
-                  <input v-model="newActivity.title" class="input" type="text" placeholder="Read a Book">
+                  <input
+                    id="activity-name"
+                    v-model="newActivity.title"
+                    class="input"
+                    type="text"
+                    placeholder="Read a Book"
+                  >
                 </div>
               </div>
               <!-- Notes -->
               <div class="field">
-                <label class="label">Notes</label>
+                <label 
+                  class="label"
+                  for="note-area"
+                >Notes</label>
                 <div class="control">
-                  <textarea v-model="newActivity.notes" class="textarea" placeholder="Textarea"></textarea>
+                  <textarea
+                    id="note-area"
+                    v-model="newActivity.notes"
+                    class="textarea"
+                    placeholder="Textarea"
+                  />
                 </div>
               </div>
               <!--/ Notes -->
               <div class="field is-grouped">
                 <div class="control">
-                  <button class="button is-link">Create Goal</button>
+                  <button class="button is-link">
+                    Create Goal
+                  </button>
                 </div>
                 <div class="control">
-                  <button @click="toggleFormDisplay()" class="button is-text">Cancel</button>
+                  <button
+                    class="button is-text"
+                    @click="toggleFormDisplay()"
+                  >
+                    Cancel
+                  </button>
                 </div>
               </div>
             </form>
@@ -52,9 +101,10 @@
         </div>
         <div class="column is-9">
           <div class="box content">
-            <ActivityItem v-for="activity in activities"
-                           v-bind:activity="activity"
-                           v-bind:key="activity.id"
+            <ActivityItem
+              v-for="activity in activities"
+              v-bind:activity="activity"
+              v-bind:key="activity.id"
             ></ActivityItem>
           </div>
         </div>
