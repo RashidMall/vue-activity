@@ -83,7 +83,11 @@
               <!--/ Notes -->
               <div class="field is-grouped">
                 <div class="control">
-                  <button class="button is-link">
+                  <button
+                    class="button is-link"
+                    :disabled="!isFormValid"
+                    @click="createActivity"
+                  >
                     Create Goal
                   </button>
                 </div>
@@ -103,8 +107,8 @@
           <div class="box content">
             <ActivityItem
               v-for="activity in activities"
-              v-bind:activity="activity"
-              v-bind:key="activity.id"
+              :key="activity.id"
+              :activity="activity"
             ></ActivityItem>
           </div>
         </div>
@@ -116,6 +120,12 @@
 <script>
 import ActivityItem from './components/ActivityItem'
 import { fetchActivities } from './api/index'
+
+import UserItem from './components/UserItem'
+import { fetchUsers } from './api/index'
+
+//import CategoryItem from './components/CategoryItem'
+import { fetchCategories } from "./api/index";
 
 export default {
   name: 'app',
@@ -131,51 +141,40 @@ export default {
         notes: ''
       },
       items: {1: {name: 'Filip'}, 2: {name: 'John'}},
-      user: {
-        name: 'Filip Jerga',
-        id: '-Aj34jknvncx98812',
-      },
+      user: {},
       activities: {},
-      categories: {
-        '1546969049': {text: 'books'},
-        '1546969225': {text: 'movies'}
-      }
+      categories: {}
     }
   },
+
+  computed : {
+    isFormValid () {
+      return this.newActivity.title && this.newActivity.notes
+    }
+  },
+  
 	beforeCreate() {
 		console.log("beforeCreate called!");
-    },
+  },
+  
 	created() {
-      this.activities = fetchActivities()
-    },
-	beforeMounted() {
-      console.log('beforeMounted called!');
-    },
-	mounted() {
-      console.log('mounted called!');
-    },
-	beforeUpdate() {
-      console.log('beforeUpdate called!');
-    },
-	updated() {
-      console.log('updated called!');
-    },
-	beforeDestroy() {
-      console.log('beforeDestroy called!');
-    },
-	destroyed() {
-      console.log('destroyed called!');
-    },
-    methods: {
+    this.activities = fetchActivities()
+    this.user = fetchUsers()
+    this.categories = fetchCategories()
+  },
+
+  methods: {
 		toggleTextDisplay () {
-          this.isTextDisplayed = !this.isTextDisplayed
-	},
+			this.isTextDisplayed = !this.isTextDisplayed
+		},
+
 		toggleFormDisplay () {
-          this.isFormDisplayed = !this.isFormDisplayed
-	},
+			this.isFormDisplayed = !this.isFormDisplayed
+		},
+
 		createActivity () {
-          console.log(this.newActivity)
-	}
+			console.log(this.newActivity)
+		}
   }
 }
 </script>
